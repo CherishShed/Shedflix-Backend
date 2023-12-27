@@ -1,18 +1,14 @@
-import express from 'express'
-import cors from 'cors'
-const app = express()
-const corsOptions = {
-  origin: '*',
+import 'dotenv/config'
+import app from './middleware/express'
+import { connectToDatabase } from './model/database.model'
+import router from './router/api'
+
+app.use('/api', router)
+const startServer = async () => {
+  await connectToDatabase()
+  app.listen(8081, () => {
+    console.log('listening on 8081')
+  })
 }
 
-app.use(cors(corsOptions))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-
-app.get('/api/', (req, res) => {
-  res.status(200).json({ message: 'Done' })
-})
-
-app.listen(8081, () => {
-  console.log('listening on 8081')
-})
+startServer()
