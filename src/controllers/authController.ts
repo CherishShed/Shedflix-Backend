@@ -58,7 +58,9 @@ const authController = {
         res.status(409).json({ auth: false, message: 'User already exists' })
       }
     } catch (error) {
-      res.status(500).json({ auth: false, user: null })
+      res
+        .status(500)
+        .json({ auth: false, user: null, message: 'An error occured' })
     }
   },
 }
