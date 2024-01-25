@@ -23,7 +23,8 @@ const authController = {
       }
       const accessToken = jwt.sign(
         { id: user._id, userName: user.user_name },
-        process.env.ACCESS_TOKEN_SECRET!
+        process.env.ACCESS_TOKEN_SECRET!,
+        { expiresIn: '10h' }
       )
       res.status(200).json({
         auth: true,
