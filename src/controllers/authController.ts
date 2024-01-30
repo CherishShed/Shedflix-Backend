@@ -64,6 +64,14 @@ const authController = {
         .json({ auth: false, user: null, message: 'An error occured' })
     }
   },
+  logout: async (req: Request, res: Response) => {
+    req.logout(err => {
+      if (err) {
+        return res.status(500).json({ error: err, message: 'An error occured' })
+      }
+      return res.status(200).json({ message: 'Logout successful' })
+    })
+  },
 }
 
 export default authController

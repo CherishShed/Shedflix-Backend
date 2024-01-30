@@ -13,5 +13,6 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   userController.getLoggedInUser
 )
+router.get('/logout', authController.logout)
 
 export default router
