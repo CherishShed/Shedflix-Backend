@@ -28,11 +28,13 @@ mongoose.connection.on('error', err => {
       console.log(`An error occurred connecting to database ${err}`)
     })
 })
+
 export interface userType extends Document {
   user_name: string
   password: string
   first_name: string
   last_name: string
+  favourites: number[]
 }
 const userSchema = new mongoose.Schema(
   {
@@ -40,6 +42,9 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
+    favourites: {
+      type: [Number],
+    },
   },
   { timestamps: true }
 )

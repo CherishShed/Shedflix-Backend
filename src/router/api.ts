@@ -14,5 +14,14 @@ router.get(
   userController.getLoggedInUser
 )
 router.get('/logout', authController.logout)
-
+router.put(
+  '/favourites/:id',
+  passport.authenticate('jwt', { session: false }),
+  userController.addToFavourites
+)
+router.patch(
+  '/favourites/:id',
+  passport.authenticate('jwt', { session: false }),
+  userController.removeFromFavourites
+)
 export default router
