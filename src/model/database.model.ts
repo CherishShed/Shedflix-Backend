@@ -34,7 +34,7 @@ export interface userType extends Document {
   password: string
   first_name: string
   last_name: string
-  favourites: number[]
+  favourites: { id: number; title: string; poster_path: string }[]
 }
 const userSchema = new mongoose.Schema(
   {
@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema(
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
     favourites: {
-      type: [Number],
+      type: [{ id: Number, title: String, poster_path: String }],
     },
   },
   { timestamps: true }

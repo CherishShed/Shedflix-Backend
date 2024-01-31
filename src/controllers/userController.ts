@@ -13,13 +13,11 @@ const userController = {
     res.status(200).json({ user: foundUser })
   },
   addToFavourites: async (req: Request, res: Response) => {
-    const { id } = req.params
-    console.log(id)
+    const { id, title, poster_path } = req.body
     const loggedInUser = req.user as userType
     try {
-      console.log(loggedInUser.id)
       const foundUser = await User.findById(loggedInUser.id)
-      foundUser?.favourites.push(parseInt(id))
+      foundUser?.favourites.push({ id, title, poster_path })
       foundUser?.save()
       return res.status(200).json({ message: 'Added to Favourites' })
     } catch (error) {
@@ -27,13 +25,13 @@ const userController = {
     }
   },
   removeFromFavourites: async (req: Request, res: Response) => {
+    const { id } = req.params
     try {
-      const { id } = req.body
       const loggedInUser = req.user as userType
       const foundUser = await User.findById(loggedInUser.id)
       if (foundUser) {
-        foundUser.favourites = foundUser.favourites.filter(movieId => {
-          movieId != id
+        foundUser.favourites = foundUser.favourites.filter(movie => {
+          movie.id != parseInt(id)
         })
         foundUser?.save()
       }

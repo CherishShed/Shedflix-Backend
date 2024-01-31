@@ -15,7 +15,7 @@ router.get(
 )
 router.get('/logout', authController.logout)
 router.put(
-  '/favourites/:id',
+  '/favourites',
   passport.authenticate('jwt', { session: false }),
   userController.addToFavourites
 )
